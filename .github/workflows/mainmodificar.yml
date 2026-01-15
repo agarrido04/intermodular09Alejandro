@@ -15,14 +15,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Modifica fitxer md
+      - name: Modifica README.md
         run: |
           echo -e "- ${{ github.actor }} modifica el repo ${{ github.repository }} :  "`date`"\n" >> README.md
+
+      - name: Modifica index.html
+        run: |
+          sed -i '/<ul>/a <li>Modificat per Github Actions el '`date`'</li>' index.html
 
       - name: commit i push
         run: |
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
           git add --all
-          git commit -m "Afegit contingut a README.md"
+          git commit -m "Modificació automàtica de README.md i index.html"
           git push
